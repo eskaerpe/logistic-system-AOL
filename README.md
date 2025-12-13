@@ -47,8 +47,8 @@ Follow the menu prompts to navigate through the system.
 -   `itemIn.c`: Increase item stock
 -   `itemOut.c`: Decrease item stock
 -   `searchItem.c`: Search items
--   `printTable.c`: Table printing utilities
--   `barang.txt`: Data file
+-   `printTable.c`: Table printing utilities- `Record.h`: Structure definitions
+-   `barang.txt`: Data file- `barang.txt`: Data file
 
 ## Notes
 
