@@ -11,6 +11,12 @@ A simple warehouse management system written in C for managing inventory items.
 -   **Item Out**: Decrease stock of existing items.
 -   **Search Item**: Search for items by name.
 
+## User Roles
+
+-   **Admin**: Full access to all features (password: admin123)
+-   **Staff**: Access to Generate Report, Search Item, Item In, Item Out (password: staff123)
+-   **Visitor**: Read-only access to Generate Report and Search Item (no password required)
+
 ## Requirements
 
 -   GCC compiler (or any C compiler)
@@ -32,7 +38,7 @@ Run the executable:
 ./LogisticSystemAOL.exe
 ```
 
-Follow the menu prompts to navigate through the system.
+Select your user role (Admin, Staff, or Visitor) and enter the required password if prompted. Then follow the menu prompts to navigate through the system.
 
 ## Data File
 
