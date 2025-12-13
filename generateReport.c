@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-typedef struct {
-    int id;
-    char name[100];
-    int stock;
-    int price;
-} Record;
+#include "Record.h"
 
 void generateReport(){
     FILE *fp;

@@ -1,139 +1,147 @@
 #include <stdio.h>
 #include <string.h>
 
-// Note: Record struct is defined in generateReport.c
-void sortAndDisplayReport(char* filename);
-int getSortChoice();
-void sortRecords(Record recs[], int count, int sortChoice);
-void printSortedResults(Record recs[], int count);
+// Record struct is expected to be declared in generateReport.c
 
+void printRecords(Record recs[], int count);
+void swapRecords(Record* a, Record* b);
+void sortById(Record recs[], int count);
+void sortByName(Record recs[], int count);
+void sortByStock(Record recs[], int count);
+void sortByPrice(Record recs[], int count);
 
-// Complete sorting report function with filename parameter
 void sortAndDisplayReport(char* filename) {
     FILE *fp;
+    Record recs[200]; // struct nya dari generateReport.c
+    int count = 0;
     int id;
     char namaBarang[100];
     int stock;
     int harga;
+    int sortChoice;
 
-    // Load records into array
-    Record recs[200];
-    int count = 0;
-
+    // Buka file
     fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("[!] Error: cannot open %s\n", filename);
         return;
     }
 
+    // Print original table tanpa disort
+    printf("Original list:\n");
     printf("%-5s| %-30s| %-10s| %-10s| %-10s\n", "ID", "NAMA BARANG", "STOCK", "HARGA", "Keterangan");
     printf("-----|-------------------------------|-----------|-----------|--------------\n");
-    while(fscanf(fp, " %d - %99[^-] - %d - %d", &id, namaBarang, &stock, &harga) == 4){
-        printf("%-5d| %-30s| %-10d| %-10d| %-10s\n", id, namaBarang, stock, harga, stock < 5 ? "LOW STOCK!":"");
+
+    while (fscanf(fp, " %d - %99[^-] - %d - %d", &id, namaBarang, &stock, &harga) == 4) {
         if (count < 200) {
             recs[count].id = id;
-            strncpy(recs[count].name, namaBarang, sizeof(recs[count].name)-1);
-            recs[count].name[sizeof(recs[count].name)-1] = '\0';
+            strncpy(recs[count].name, namaBarang, sizeof(recs[count].name) - 1);
+            recs[count].name[sizeof(recs[count].name) - 1] = '\0';
             recs[count].stock = stock;
             recs[count].price = harga;
             count++;
         }
+        printf("%-5d| %-30s| %-10d| %-10d| %-10s\n", id, namaBarang, stock, harga, stock < 5 ? "LOW STOCK!" : "");
     }
 
+    fclose(fp);
     printf("\n\n");
 
-    // Sorting option
-    int sortChoice = getSortChoice();
+    // Pilihan untuk sort
+    printf("Sorting options:\n");
+    printf("1. Sort by ID (ascending)\n");
+    printf("2. Sort by Name (A-Z)\n");
+    printf("3. Sort by Stock (Low -> High)\n");
+    printf("4. Sort by Price (High -> Low)\n");
+    printf("0. Cancel\n");
+    printf("Choose option: ");
 
-    if (sortChoice == -1) { // Error in input
-        fclose(fp);
+    // validation untuk pilihan sorting
+    if (scanf("%d", &sortChoice) != 1) {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+        printf("Input tidak valid, kembali ke menu utama.\n");
         return;
     }
 
     if (sortChoice == 0) {
-        fclose(fp);
+        printf("Kembali ke menu utama.\n");
         return;
     }
 
     if (sortChoice < 0 || sortChoice > 4) {
-        printf("Invalid choice. Returning to main menu.\n");
-        fclose(fp);
+        printf("Pilihan tidak dikenal, kembali ke menu utama.\n");
         return;
     }
+    // end of validation
 
-    // Sort the records
-    sortRecords(recs, count, sortChoice);
 
-    // Print sorted results
-    printSortedResults(recs, count);
+    if (sortChoice == 1) {
+        sortById(recs, count);
+    } else if (sortChoice == 2) {
+        sortByName(recs, count);
+    } else if (sortChoice == 3) {
+        sortByStock(recs, count);
+    } else if (sortChoice == 4) {
+        sortByPrice(recs, count);
+    }
 
-    fclose(fp);
+    system("cls");
+    printf("Sorted results:\n");
+    printf("%-5s| %-30s| %-10s| %-10s| %-10s\n", "ID", "NAMA BARANG", "STOCK", "HARGA", "Keterangan");
+    printf("-----|-------------------------------|-----------|-----------|--------------\n");
+    printRecords(recs, count);
+    printf("\n\n");
 }
 
-// Function to sort records based on user's choice
-void sortRecords(Record recs[], int count, int sortChoice) {
-    // simple bubble sort for clarity
-    for (int i = 0; i < count-1; i++) {
-        for (int j = 0; j < count-i-1; j++) {
-            int swap = 0;
-            switch (sortChoice) {
-                case 1: // by ID ascending
-                    if (recs[j].id > recs[j+1].id) swap = 1;
-                    break;
-                case 2: // by Name A-Z
-                    if (strcmp(recs[j].name, recs[j+1].name) > 0) swap = 1;
-                    break;
-                case 3: // by Stock Low -> High
-                    if (recs[j].stock > recs[j+1].stock) swap = 1;
-                    break;
-                case 4: // by Price High -> Low
-                    if (recs[j].price < recs[j+1].price) swap = 1;
-                    break;
-                default:
-                    break;
-            }
-            if (swap == 1) {
-                Record tmp = recs[j];
-                recs[j] = recs[j+1];
-                recs[j+1] = tmp;
+void printRecords(Record recs[], int count) {
+    for (int i = 0; i < count; i++) {
+        printf("%-5d| %-30s| %-10d| %-10d| %-10s\n", recs[i].id, recs[i].name, recs[i].stock, recs[i].price, recs[i].stock < 5 ? "LOW STOCK!" : "");
+    }
+}
+
+void swapRecords(Record* a, Record* b) {
+    Record tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void sortById(Record recs[], int count) { // Bubble Sort for ID
+    for (int outer = 0; outer < count - 1; outer++) {
+        for (int i = 0; i < count - 1 - outer; i++) {
+            if (recs[i].id > recs[i + 1].id) {
+                swapRecords(&recs[i], &recs[i + 1]);
             }
         }
     }
 }
 
-// Function to display sorting menu and get user choice
-int getSortChoice() {
-    int sortChoice;
-    printf("================================\n");
-    printf("SORTING OPTIONS:\n");
-    printf("1. Sort by ID (ascending)\n");
-    printf("2. Sort by Name (A-Z)\n");
-    printf("3. Sort by Stock (Low -> High)\n");
-    printf("4. Sort by Price (High -> Low)\n");
-    printf("0. Return to Main Menu\n");
-    printf("================================\n");
-    printf("Select sorting method (0-4): ");
-
-    if (scanf("%d", &sortChoice) != 1) {
-        int c;
-        while((c = getchar()) != '\n' && c != EOF); // clear input buffer
-        printf("Invalid input. Returning to main menu.\n");
-        return -1; // indicate error
+void sortByName(Record recs[], int count) { // Bubble Sort for Name
+    for (int outer = 0; outer < count - 1; outer++) {
+        for (int i = 0; i < count - 1 - outer; i++) {
+            if (strcmp(recs[i].name, recs[i + 1].name) > 0) {
+                swapRecords(&recs[i], &recs[i + 1]);
+            }
+        }
     }
-
-    return sortChoice;
 }
 
-// Function to print sorted results
-void printSortedResults(Record recs[], int count) {
-    system("cls");
-    printf("Sorted results:\n");
-    printf("%-5s| %-30s| %-10s| %-10s| %-10s\n", "ID", "NAMA BARANG", "STOCK", "HARGA", "Keterangan");
-    printf("-----|-------------------------------|-----------|-----------|--------------\n");
-    for (int i = 0; i < count; i++) {
-        printf("%-5d| %-30s| %-10d| %-10d| %-10s\n",
-               recs[i].id, recs[i].name, recs[i].stock, recs[i].price,
-               recs[i].stock < 5 ? "LOW STOCK!":"");
+void sortByStock(Record recs[], int count) { // Bubble Sort for Stock
+    for (int outer = 0; outer < count - 1; outer++) {
+        for (int i = 0; i < count - 1 - outer; i++) {
+            if (recs[i].stock > recs[i + 1].stock) {
+                swapRecords(&recs[i], &recs[i + 1]);
+            }
+        }
     }
-    printf("\n\n");
+}
+
+void sortByPrice(Record recs[], int count) { // Bubble Sort for Price
+    for (int outer = 0; outer < count - 1; outer++) {
+        for (int i = 0; i < count - 1 - outer; i++) {
+            if (recs[i].price < recs[i + 1].price) {
+                swapRecords(&recs[i], &recs[i + 1]);
+            }
+        }
+    }
 }
