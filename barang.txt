@@ -1,15 +1,10 @@
-2221 - Mouse - 20 - 20000
-523 - Keyboard - 15 - 30000
-1122 - Headset - 20 - 50000
-1212 - Monitor - 2 - 10000000
-6452 - abc - 10 - 1000
-3452 - keyboard - 2 - 50000
-1243 - Headset 1 - 20 - 500000
-5321 - Monitor AOC - 4 - 1500000
-6534 - Headset DBE - 3 - 50000
-9876 - Mouse Lucitik - 4 - 75000
-5315 - FHGGFGFD - 24 - 234567
-2342 - abcde - 29 - 10000
-2341 - aman aja boleh - 3 - 696969
-1231 - rolls royce - 20 - 2000
-6767 - six seven - 2 - 676767
+1027 - Mouse USB - 4 - 75000
+3841 - Keyboard - 30 - 150000
+5693 - Headset - 20 - 220000
+9184 - Webcam HD - 1 - 325000
+2740 - Mousepad - 60 - 25000
+7462 - Speaker Mini - 18 - 180000
+6309 - Flashdisk - 50 - 90000
+8517 - USB Hub - 25 - 120000
+4926 - Gamepad - 3 - 275000
+1678 - Card Reader - 40 - 65000
