@@ -111,7 +111,6 @@ INPUT_DATA:
     // sudah terdapat dalam file
     // ============================================
     file = fopen(filename, "a"); // a itu append, untuk membuka file dan menulis di akhir file tanpa menghapus data lama
-    // fprintf(file, "%-6s - %-20s - %6d - %8d\n", newID, newName, newStock, newPrice); // GANTI %d -> %s
     fprintf(file, "%s-%s-%d-%d\n", newID, newName, newStock, newPrice);
     fclose(file);
 

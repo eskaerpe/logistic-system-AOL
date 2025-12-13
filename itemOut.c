@@ -21,13 +21,15 @@ void itemOut(const char *filename) {
     char foundName[100];
     int foundStock, foundPrice;
 
-    // Loop untuk validasi ID
+    // Input ID barang yang mau dikurangi stocknya + validasinya 
     do {
         printf("\nMasukkan ID Barang : ");
         scanf("%d", &searchID);
 
         file = fopen(filename, "r");
         found = 0;
+
+        // Cari ID di file
         while (fscanf(file, " %d - %99[^-] - %d - %d",
                       &idFile, name, &stock, &price) == 4) {
             if (idFile == searchID) {
@@ -43,30 +45,32 @@ void itemOut(const char *filename) {
         }
         fclose(file);
 
+        // Jika tidak ditemukan, beri tahu user
         if (!found) {
             printf("ID Barang tidak ditemukan! Silakan coba lagi.\n");
         }
-    } while (!found);
+    } while (!found); // Ulangi sampai ID ditemukan
 
     
 
-    // Sekarang prompt jumlah
+    // Input jumlah barang keluar
     do {
         printf("Jumlah Barang Keluar : ");
         scanf("%d", &keluarStock);
     } while (keluarStock <= 0);
 
-    // Cek stock cukup
+    // Stock validation
     if (foundStock < keluarStock) {
         printf("Stok tidak mencukupi!\n");
         return;
     }
 
-    // Sekarang update file
+    // Update stock in file
     file = fopen(filename, "r");
     char buffer[100][200];
     int count = 0;
 
+    // Cari dan update stock
     while (fscanf(file, " %d - %99[^-] - %d - %d",
                   &idFile, name, &stock, &price) == 4) {
         if (idFile == searchID) {
@@ -76,7 +80,6 @@ void itemOut(const char *filename) {
                 idFile, name, stock, price);
         count++;
     }
-
     fclose(file);
 
     // Tulis ulang file

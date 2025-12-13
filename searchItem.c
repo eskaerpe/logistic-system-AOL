@@ -20,11 +20,13 @@ void searchItem(char* filename) {
 
     int found = 0;
 
+    // Cari keyword di setiap baris
     while (fgets(line, sizeof(line), file) != NULL) {
         if (strstr(line, keyword) != NULL) {
             int id, stock, price;
             char name[100];
             
+            // Parse line untuk ambil data
             if (sscanf(line, "%d - %99[^-] - %d - %d", &id, name, &stock, &price) == 4) {
                 printTable(id, name, stock, price);
                 found = 1;
@@ -33,14 +35,10 @@ void searchItem(char* filename) {
         }
     } 
 
+    // Jika tidak ditemukan
     if (!found) {
         printf("\nData \"%s\" tidak ditemukan.\n", keyword);
     }
 
     fclose(file);
 }
-
-// int main() {
-//     searchItem("barang.txt");
-//     return 0;
-// }
