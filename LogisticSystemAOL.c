@@ -19,6 +19,7 @@ void generateReport();
 void printHeadTitle(char* words);
 
 int main(){
+	system("cls");
 	// User role selection
 	printHeadTitle("LOGISTIC SYSTEM");
 	int role;

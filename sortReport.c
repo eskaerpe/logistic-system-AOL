@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "Record.h"
+#include "Record.c"
 
 // Record struct is expected to be declared in generateReport.c
 
