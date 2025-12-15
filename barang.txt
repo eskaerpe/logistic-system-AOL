@@ -8,5 +8,3 @@
 8517-USB Hub-25-120000
 4926-Gamepad-3-275000
 1678-Card Reader-40-65000
-
-1212-contoh aja-3-100000
