@@ -30,7 +30,7 @@ INPUT_DATA:
     scanf("%49s", newID); // GANTI INI DARI "d" jadi "s"
     getchar(); // ini buat buang newline setelah scanf
 
-    printf("Masukkan nama barang: ");
+    printf("Masukkan nama barang : ");
     fgets(newName, sizeof(newName), stdin);
 
     // Hapus newline pake loop
@@ -111,7 +111,7 @@ INPUT_DATA:
     // sudah terdapat dalam file
     // ============================================
     file = fopen(filename, "a"); // a itu append, untuk membuka file dan menulis di akhir file tanpa menghapus data lama
-    fprintf(file, "%s-%s-%d-%d\n", newID, newName, newStock, newPrice);
+    fprintf(file, "\n%s-%s-%d-%d\n", newID, newName, newStock, newPrice);
     fclose(file);
 
     printTable(atoi(newID), newName, newStock, newPrice);

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
+#include "Record.c"
 
 #include "printTable.c"
 #include "generateReport.c"

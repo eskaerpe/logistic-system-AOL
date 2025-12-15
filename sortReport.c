@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include "Record.c"
-
-// Record struct is expected to be declared in generateReport.c
 
 void printRecords(Record recs[], int count);
 void swapRecords(Record* a, Record* b);

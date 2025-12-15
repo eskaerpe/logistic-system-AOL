@@ -1,10 +1,12 @@
-1027 - Mouse USB - 4 - 75000
-3841 - Keyboard - 30 - 150000
-5693 - Headset - 20 - 220000
-9184 - Webcam HD - 1 - 325000
-2740 - Mousepad - 60 - 25000
-7462 - Speaker Mini - 18 - 180000
-6309 - Flashdisk - 50 - 90000
-8517 - USB Hub - 25 - 120000
-4926 - Gamepad - 3 - 275000
-1678 - Card Reader - 40 - 65000
+1027-Mouse USB-4-75000
+3841-Keyboard-30-150000
+5693-Headset-20-220000
+9184-Webcam HD-1-325000
+2740-Mousepad-60-25000
+7462-Speaker Mini-18-180000
+6309-Flashdisk-50-90000
+8517-USB Hub-25-120000
+4926-Gamepad-3-275000
+1678-Card Reader-40-65000
+
+1212-contoh aja-3-100000
